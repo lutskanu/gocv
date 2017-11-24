@@ -276,14 +276,14 @@ func TestHoughCircles(t *testing.T) {
 	circles := NewMat()
 	defer circles.Close()
 
-	HoughLines(img, circles, 3, 5.0, 5.0)
+	HoughCircles(img, circles, 3, 5.0, 5.0)
 	if circles.Empty() {
 		t.Error("Empty HoughCircles test")
 	}
-	if circles.Rows() != 8 {
+	if circles.Rows() != 1 {
 		t.Errorf("Invalid HoughCircles test rows: %v", circles.Rows())
 	}
-	if circles.Cols() != 1 {
+	if circles.Cols() < 330 || circles.Cols() > 334 {
 		t.Errorf("Invalid HoughCircles test cols: %v", circles.Cols())
 	}
 }
@@ -408,27 +408,5 @@ func TestResize(t *testing.T) {
 	Resize(src, dst, image.Pt(440, 377), 0, 0, InterpolationCubic)
 	if dst.Cols() != 440 || dst.Rows() != 377 {
 		t.Errorf("Expected dst size of 440x377 got %dx%d", dst.Cols(), dst.Rows())
-	}
-}
-
-func TestLUT(t *testing.T) {
-	src := IMRead("images/gocvlogo.jpg", IMReadColor)
-	if src.Empty() {
-		t.Error("Invalid read of Source Mat in LUT test")
-	}
-	defer src.Close()
-
-	lut := IMRead("images/lut.png", IMReadColor)
-	if lut.Empty() {
-		t.Error("Invalid read of LUT Mat in LUT test")
-	}
-	defer lut.Close()
-
-	dst := NewMat()
-	defer dst.Close()
-
-	LUT(src, lut, dst)
-	if dst.Cols() != 400 || dst.Rows() != 343 {
-		t.Errorf("Expected dst size of 200x172 got %dx%d", dst.Cols(), dst.Rows())
 	}
 }

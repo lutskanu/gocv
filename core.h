@@ -79,6 +79,23 @@ typedef struct Scalar {
   double val4;
 } Scalar;
 
+// Wrapper for a individual cv::KeyPoint
+typedef struct KeyPoint {
+  double x;
+  double y;
+  double size;
+  double angle;
+  double response;
+  int octave;
+  int classID;
+} KeyPoint;
+
+// Wrapper for the vector of KeyPoint struct aka std::vector<KeyPoint>
+typedef struct KeyPoints {
+  KeyPoint* keypoints;
+  int length;
+} KeyPoints;
+
 // Wrapper for an individual cv::Moment
 typedef struct Moment {
   double m00;
@@ -121,6 +138,7 @@ struct ByteArray toByteArray(const char* buf, int len);
 void ByteArray_Release(struct ByteArray buf);
 
 void Contours_Close(struct Contours cs);
+void KeyPoints_Close(struct KeyPoints ks);
 void Rects_Close(struct Rects rs);
 
 Mat Mat_New();
@@ -140,6 +158,7 @@ int16_t Mat_GetShort(Mat m, int row, int col);
 int32_t Mat_GetInt(Mat m, int row, int col);
 float Mat_GetFloat(Mat m, int row, int col);
 double Mat_GetDouble(Mat m, int row, int col);
+void LUT(Mat src, Mat lut, Mat dst);
 
 void Mat_AbsDiff(Mat src1, Mat src2, Mat dst);
 void Mat_Add(Mat src1, Mat src2, Mat dst);

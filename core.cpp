@@ -55,6 +55,10 @@ Scalar Mat_Mean(Mat m) {
     return scal;
 }
 
+void LUT(Mat src, Mat lut, Mat dst) {
+  cv::LUT(*src, *lut, *dst);
+}
+
 // Mat_Rows returns how many rows in this Mat.
 int Mat_Rows(Mat m) {
     return m->rows;
@@ -156,6 +160,10 @@ TermCriteria TermCriteria_New(int typ, int maxCount, double epsilon) {
 
 void Contours_Close(struct Contours cs) {
     delete cs.contours;
+}
+
+void KeyPoints_Close(struct KeyPoints ks) {
+    delete ks.keypoints;
 }
 
 void Rects_Close(struct Rects rs) {
